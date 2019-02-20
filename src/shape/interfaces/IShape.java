@@ -3,10 +3,19 @@ package shape.interfaces;
 import model.ShapeColor;
 import model.ShapeType;
 import shape.Point;
+import view.interfaces.PaintCanvasBase;
+
+import java.awt.*;
 
 public interface IShape {
-    public Point getStartPoint();
-    public Point getEndPoint();
-    public ShapeType getShapeType();
-    public ShapeColor getPrimaryColor();
+    Point getStartPoint();
+    Point getEndPoint();
+    ShapeType getShapeType();
+    Color getPrimaryColor();
+    int getStartX();
+    int getStartY();
+    int getEndX();
+    int getEndY();
+    void draw();
+
 }

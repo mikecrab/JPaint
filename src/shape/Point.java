@@ -3,19 +3,19 @@ package shape;
 import shape.interfaces.IPoint;
 
 public class Point implements IPoint {
-    private double x;
-    private double y;
+    private int x;
+    private int y;
 
-    public Point(double x, double y) {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public double getX() {
+    public int getX() {
         return this.x;
     }
 
-    public double getY() {
+    public int getY() {
         return this.y;
     }
 }

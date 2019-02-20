@@ -1,5 +1,11 @@
 package Commands;
 
+import drawer.EclipseDrawer;
+import drawer.IShapeDrawer;
+import drawer.RectangleDrawer;
+import drawer.TriangleDrawer;
+import model.ShapeShadingType;
+import model.ShapeType;
 import model.persistence.ApplicationState;
 import shape.Point;
 import shape.Shape;
@@ -22,7 +28,22 @@ public class CreateShapeCommand implements ICommand {
 
     public void run() {
         IShapeFactory factory = new ShapeFactory();
-        IShape shape = factory.createShape(this.startPoint, this.endPoint, this.state);
+
+        IShapeDrawer drawer;
+        switch (this.state.getActiveShapeType()) {
+            case RECTANGLE:
+                drawer = new RectangleDrawer();
+                break;
+            case TRIANGLE:
+                drawer = new TriangleDrawer();
+                break;
+            case ELLIPSE:
+                drawer = new EclipseDrawer();
+                break;
+            default:
+                throw new Error();
+        }
+        IShape shape = factory.createShape(this.startPoint, this.endPoint, this.state, drawer);
         ShapeCollection.add(shape);
     }
 }

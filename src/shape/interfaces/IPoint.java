@@ -1,6 +1,6 @@
 package shape.interfaces;
 
 public interface IPoint {
-    double getX();
-    double getY();
+    int getX();
+    int getY();
 }

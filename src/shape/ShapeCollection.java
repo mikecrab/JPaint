@@ -1,21 +1,18 @@
 package shape;
 
-import Commands.DrawShapeCommand;
+import drawer.ShapeDrawer;
 import shape.interfaces.IShape;
 import shape.interfaces.IShapeCollection;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Observable;
+import java.util.List;
 
-public class ShapeCollection extends Observable implements IShapeCollection  {
-    public static Collection<IShape> shapeCollection = new ArrayList<IShape>();
+public class ShapeCollection implements IShapeCollection  {
+    public static final List<IShape> shapeCollection = new ArrayList<>();
 
     public static void add(IShape shape) {
         shapeCollection.add(shape);
-        DrawShapeCommand draw = new DrawShapeCommand();
+        ShapeDrawer.draw();
     }
 
-    public static void delete(Shape shape) {
-    }
 }
