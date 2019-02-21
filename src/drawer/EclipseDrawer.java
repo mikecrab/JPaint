@@ -1,6 +1,5 @@
 package drawer;
 
-import shape.interfaces.IPoint;
 import shape.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
 

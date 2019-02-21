@@ -22,7 +22,21 @@ public class ClickHandler extends MouseAdapter {
 
     public void mouseReleased(MouseEvent e) {
         this.endPoint = new Point(e.getX(), e.getY());
-        ICommand command = new CreateShapeCommand(this.startPoint, this.endPoint, this.state);
+        ICommand command;
+        switch (this.state.getActiveStartAndEndPointMode()){
+            case DRAW:
+                command = new CreateShapeCommand(this.startPoint, this.endPoint, this.state);
+                break;
+            case SELECT:
+                command = new SelectShapeCommand(this.startPoint, this.endPoint);
+                break;
+            case MOVE:
+                command = new MoveShapeCommand(this.startPoint, this.endPoint);
+                break;
+            default:
+                throw new Error();
+        }
+
         command.run();
     }
 

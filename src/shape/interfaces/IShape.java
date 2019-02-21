@@ -8,14 +8,15 @@ import view.interfaces.PaintCanvasBase;
 import java.awt.*;
 
 public interface IShape {
-    Point getStartPoint();
-    Point getEndPoint();
+    IPoint getStartPoint();
+    IPoint getEndPoint();
     ShapeType getShapeType();
     Color getPrimaryColor();
-    int getStartX();
-    int getStartY();
-    int getEndX();
-    int getEndY();
+    int getMinX();
+    int getMinY();
+    int getWidth();
+    int getHeight();
+    int getMaxX();
+    int getMaxY();
     void draw();
-
 }

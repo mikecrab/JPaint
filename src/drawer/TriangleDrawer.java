@@ -1,9 +1,5 @@
 package drawer;
 
-import shape.interfaces.IPoint;
-import shape.interfaces.IShape;
-import view.interfaces.PaintCanvasBase;
-
 import java.awt.*;
 
 public class TriangleDrawer implements IShapeDrawer {

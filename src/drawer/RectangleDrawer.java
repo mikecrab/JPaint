@@ -1,9 +1,5 @@
 package drawer;
 
-import model.ShapeColor;
-import model.ShapeMap;
-import shape.interfaces.IPoint;
-import shape.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;

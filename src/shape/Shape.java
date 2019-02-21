@@ -9,14 +9,15 @@ import model.ShapeMap;
 import model.ShapeShadingType;
 import model.ShapeType;
 import model.persistence.ApplicationState;
+import shape.interfaces.IPoint;
 import shape.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
 public class Shape implements IShape {
-    private Point startPoint;
-    private Point endPoint;
+    private IPoint startPoint;
+    private IPoint endPoint;
     private ShapeType shapeType;
     private Color primaryColor;
     private Color secondaryColor;
@@ -52,28 +53,36 @@ public class Shape implements IShape {
         }
     }
 
-    public Point getStartPoint() {
+    public IPoint getStartPoint() {
         return this.startPoint;
     }
 
-    public int getStartX() {
-        return this.startPoint.getX();
-    }
-
-    public int getStartY() {
-        return this.startPoint.getY();
-    }
-
-    public Point getEndPoint() {
+    public IPoint getEndPoint() {
         return this.endPoint;
     }
 
-    public int getEndX() {
-        return this.endPoint.getX();
+    public int getMinX() {
+        return Math.min(startPoint.getX(), endPoint.getX());
     }
 
-    public int getEndY() {
-        return this.endPoint.getY();
+    public int getMinY() {
+        return Math.min(startPoint.getY(), endPoint.getY());
+    }
+
+    public int getMaxX() {
+        return Math.max(startPoint.getX(), endPoint.getX());
+    }
+
+    public int getMaxY() {
+        return Math.max(startPoint.getY(), endPoint.getY());
+    }
+
+    public int getWidth() {
+        return this.getMaxX() - this.getMinX();
+    }
+
+    public int getHeight() {
+        return this.getMaxY() - this.getMinY();
     }
 
     public ShapeType getShapeType() {
@@ -87,4 +96,5 @@ public class Shape implements IShape {
     public ShapeShadingType getShapeShadingType() {
         return this.shapeShadeType;
     }
+
 }
