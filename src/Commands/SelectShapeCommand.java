@@ -34,7 +34,7 @@ public class SelectShapeCommand implements ICommand {
                     shape.getMinX() + shape.getWidth() > selectBoxX &&
                     shape.getMinY() < selectBoxY + selectBoxHeight &&
                     shape.getMinY() + shape.getHeight() > selectBoxY) {
-                SelectedShapeCollection.selectedShapes.add(shape);
+                SelectedShapeCollection.add(shape);
             }
         }
     }

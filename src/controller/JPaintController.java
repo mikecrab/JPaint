@@ -1,5 +1,8 @@
 package controller;
 
+import Commands.CopyShapeCommand;
+import Commands.DeleteShapeCommand;
+import Commands.PasteShapeCommand;
 import model.interfaces.IApplicationState;
 import view.EventName;
 import view.interfaces.IUiModule;
@@ -24,5 +27,8 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.CHOOSE_SECONDARY_COLOR, () -> applicationState.setActiveSecondaryColor());
         uiModule.addEvent(EventName.CHOOSE_SHADING_TYPE, () -> applicationState.setActiveShadingType());
         uiModule.addEvent(EventName.CHOOSE_START_POINT_ENDPOINT_MODE, () -> applicationState.setActiveStartAndEndPointMode());
+        uiModule.addEvent(EventName.COPY, () -> new CopyShapeCommand().run());
+        uiModule.addEvent(EventName.PASTE, () -> new PasteShapeCommand().run());
+        uiModule.addEvent(EventName.DELETE, () -> new DeleteShapeCommand().run());
     }
 }

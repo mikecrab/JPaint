@@ -8,6 +8,7 @@ import model.ShapeColor;
 import model.ShapeMap;
 import model.ShapeShadingType;
 import model.ShapeType;
+import model.interfaces.IApplicationState;
 import model.persistence.ApplicationState;
 import shape.interfaces.IPoint;
 import shape.interfaces.IShape;
@@ -23,10 +24,12 @@ public class Shape implements IShape {
     private Color secondaryColor;
     private ShapeShadingType shapeShadeType;
     private IShapeDrawer drawer;
+    private ApplicationState state;
 
     public Shape(Point startPoint, Point endPoint, ApplicationState state, IShapeDrawer drawer) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
+        this.state = state;
         this.shapeType = state.getActiveShapeType();
         this.primaryColor = ShapeMap.colorMap.get(state.getActivePrimaryColor());
         this.secondaryColor = ShapeMap.colorMap.get(state.getActiveSecondaryColor());
@@ -59,6 +62,14 @@ public class Shape implements IShape {
 
     public IPoint getEndPoint() {
         return this.endPoint;
+    }
+
+    public ApplicationState getState() {
+        return this.state;
+    }
+
+    public IShapeDrawer getDrawer() {
+        return this.drawer;
     }
 
     public int getMinX() {

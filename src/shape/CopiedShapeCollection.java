@@ -7,14 +7,14 @@ import shape.interfaces.IShapeCollection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectedShapeCollection implements IShapeCollection {
-    public static List<IShape> selectedShapes;
+public class CopiedShapeCollection implements IShapeCollection {
+    public static List<IShape> copiedShapes;
 
     public static void reset() {
-        selectedShapes = new ArrayList<>();
+        copiedShapes = new ArrayList<>();
     }
 
     public static void add(IShape shape) {
-        selectedShapes.add(shape);
+        copiedShapes.add(shape);
     }
 }
