@@ -1,5 +1,7 @@
 package drawer;
 
+import shape.interfaces.IShape;
+
 import java.awt.*;
 
 public class TriangleDrawer implements IShapeDrawer {
@@ -19,12 +21,12 @@ public class TriangleDrawer implements IShapeDrawer {
     }
 
     @Override
-    public void drawOutlineShape(int startX, int startY, int width, int height, Color primaryColor) {
+    public void drawOutlineShape(int startX, int startY, int width, int height, Color primaryColor, Stroke stroke) {
         Graphics2D graphics2d = ShapeDrawer.canvas.getGraphics2D();
         int[] xPoints = {startX, startX+width, startX};
         int[] yPoints = {startY, startY+height, startY+height};
 
-        graphics2d.setStroke(new BasicStroke(5));
+        graphics2d.setStroke(stroke);
         graphics2d.setColor(primaryColor);
         graphics2d.drawPolygon(xPoints, yPoints, 3);
     }

@@ -15,4 +15,9 @@ public class ShapeCollection implements IShapeCollection  {
         ShapeDrawer.draw();
     }
 
+    public static void delete(IShape shape) {
+        shapeCollection.remove(shape);
+        ShapeDrawer.draw();
+    }
+
 }

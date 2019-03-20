@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CopiedShapeCollection implements IShapeCollection {
-    public static List<IShape> copiedShapes;
+    public static ArrayList<IShape> copiedShapes = new ArrayList<>();;
 
     public static void reset() {
         copiedShapes = new ArrayList<>();

@@ -1,5 +1,6 @@
 package drawer;
 
+import shape.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
@@ -21,10 +22,11 @@ public class RectangleDrawer implements IShapeDrawer {
     }
 
     @Override
-    public void drawOutlineShape(int startX, int startY, int width, int height, Color primaryColor) {
+    public void drawOutlineShape(int startX, int startY, int width, int height, Color primaryColor, Stroke stroke) {
+
         Graphics2D graphics2d = ShapeDrawer.canvas.getGraphics2D();
 
-        graphics2d.setStroke(new BasicStroke(5));
+        graphics2d.setStroke(stroke);
         graphics2d.setColor(primaryColor);
         graphics2d.drawRect(startX, startY, width, height);
     }

@@ -18,7 +18,8 @@ public class CopyShapeCommand implements ICommand {
         Iterator<IShape> shapeIterator = SelectedShapeCollection.selectedShapes.iterator();
         while (shapeIterator.hasNext()) {
             IShape shape = shapeIterator.next();
-            CopiedShapeCollection.add(shape);
+            IShape newShape = shape.copy();
+            CopiedShapeCollection.add(newShape);
         }
     }
 

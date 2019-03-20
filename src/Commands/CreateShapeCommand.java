@@ -15,10 +15,11 @@ import shape.interfaces.IShape;
 import shape.interfaces.IShapeFactory;
 
 
-public class CreateShapeCommand implements ICommand {
+public class CreateShapeCommand implements ICommand, IUndoable {
     public Point startPoint;
     public Point endPoint;
     public ApplicationState state;
+    private IShape shape;
 
     public CreateShapeCommand(Point startPoint, Point endPoint, ApplicationState state) {
         this.startPoint = startPoint;
@@ -43,7 +44,17 @@ public class CreateShapeCommand implements ICommand {
             default:
                 throw new Error();
         }
-        IShape shape = factory.createShape(this.startPoint, this.endPoint, this.state, drawer);
+        shape = factory.createShape(this.startPoint, this.endPoint, this.state, drawer);
+        ShapeCollection.add(shape);
+
+        CommandHistory.add(this);
+    }
+
+    public void undo() {
+        ShapeCollection.delete(shape);
+    }
+
+    public void redo() {
         ShapeCollection.add(shape);
     }
 }

@@ -23,5 +23,8 @@ public interface IShape {
     int getHeight();
     int getMaxX();
     int getMaxY();
+    void setDrawer(IShapeDrawer drawer);
     void draw();
+    IShape copy();
+    void move(int deltaX, int deltaY);
 }

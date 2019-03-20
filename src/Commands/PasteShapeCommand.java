@@ -8,9 +8,12 @@ import shape.interfaces.IPoint;
 import shape.interfaces.IShape;
 import shape.interfaces.IShapeFactory;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
-public class PasteShapeCommand implements ICommand {
+public class PasteShapeCommand implements ICommand, IUndoable {
+
+    ArrayList<IShape> pastedShapes = new ArrayList<IShape>();
 
     public PasteShapeCommand() {
     }
@@ -21,18 +24,26 @@ public class PasteShapeCommand implements ICommand {
         while (shapeIterator.hasNext()) {
             IShape shape = shapeIterator.next();
 
-            IPoint shapeStartPoint = shape.getStartPoint();
-            IPoint shapeEndPoint = shape.getEndPoint();
-            int offset = 100;
+            pastedShapes.add(shape);
+            ShapeCollection.add(shape);
+        }
 
-            int pastedStartX = shapeStartPoint.getX() + offset;
-            int pastedStartY = shapeStartPoint.getY() + offset;
+        CommandHistory.add(this);
+    }
 
-            int pastedEndX = shapeEndPoint.getX() + offset;
-            int pastedEndY = shapeEndPoint.getY() + offset;
+    public void undo() {
+        Iterator<IShape> shapeIterator = pastedShapes.iterator();
 
-            IShape pastedShape = factory.createShape(new Point(pastedStartX, pastedStartY), new Point(pastedEndX, pastedEndY), shape.getState(), shape.getDrawer());
-            ShapeCollection.add(pastedShape);
+        while (shapeIterator.hasNext()) {
+            ShapeCollection.delete(shapeIterator.next());
+        }
+    }
+
+    public void redo() {
+        Iterator<IShape> shapeIterator = pastedShapes.iterator();
+
+        while (shapeIterator.hasNext()) {
+            ShapeCollection.add(shapeIterator.next());
         }
     }
 

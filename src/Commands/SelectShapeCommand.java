@@ -1,5 +1,7 @@
 package Commands;
 
+import drawer.ShapeDrawer;
+import drawer.TriangleDrawer;
 import shape.SelectedShapeCollection;
 import shape.ShapeCollection;
 import shape.interfaces.IPoint;
@@ -37,6 +39,8 @@ public class SelectShapeCommand implements ICommand {
                 SelectedShapeCollection.add(shape);
             }
         }
+
+        ShapeDrawer.draw();
     }
 
 }

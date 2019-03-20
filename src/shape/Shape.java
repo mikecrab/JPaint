@@ -1,18 +1,13 @@
 package shape;
 
-import drawer.EclipseDrawer;
-import drawer.IShapeDrawer;
-import drawer.RectangleDrawer;
-import drawer.TriangleDrawer;
-import model.ShapeColor;
+import drawer.*;
 import model.ShapeMap;
 import model.ShapeShadingType;
 import model.ShapeType;
-import model.interfaces.IApplicationState;
 import model.persistence.ApplicationState;
 import shape.interfaces.IPoint;
 import shape.interfaces.IShape;
-import view.interfaces.PaintCanvasBase;
+import shape.interfaces.IShapeFactory;
 
 import java.awt.*;
 
@@ -38,22 +33,47 @@ public class Shape implements IShape {
     }
 
     public void draw() {
-        int minX = Math.min(startPoint.getX(), endPoint.getX());
-        int minY = Math.min(startPoint.getY(), endPoint.getY());
-        int width = Math.max(startPoint.getX(), endPoint.getX()) - minX;
-        int height = Math.max(startPoint.getY(), endPoint.getY()) - minY;
+
+        IShapeDrawer currentDrawer;
+        if(SelectedShapeCollection.selectedShapes.contains(this)) {
+            currentDrawer = new SelectedDrawerDecorator(this.drawer);
+        } else {
+            currentDrawer = this.drawer;
+        }
 
         switch (this.shapeShadeType) {
             case FILLED_IN:
-                drawer.drawFilledInShape(minX, minY, width, height, this.primaryColor);
+                currentDrawer.drawFilledInShape(this.getMinX(), this.getMinY(), this.getWidth(), this.getHeight(), this.primaryColor);
                 break;
             case OUTLINE:
-                drawer.drawOutlineShape(minX, minY, width, height, this.primaryColor);
+                currentDrawer.drawOutlineShape(this.getMinX(), this.getMinY(), this.getWidth(), this.getHeight(), this.primaryColor, new BasicStroke(5));
                 break;
             case OUTLINE_AND_FILLED_IN:
-                drawer.drawOutlineFilledInShape(minX, minY, width, height, this.primaryColor, this.secondaryColor);
+                currentDrawer.drawOutlineFilledInShape(this.getMinX(), this.getMinY(), this.getWidth(), this.getHeight(), this.primaryColor, this.secondaryColor);
                 break;
         }
+
+
+    }
+
+    public void move(int deltaX, int deltaY) {
+        System.out.println(deltaX);
+        IPoint shapeStartPoint = this.getStartPoint();
+        IPoint shapeEndPoint = this.getEndPoint();
+
+        shapeStartPoint.setX(shapeStartPoint.getX() + deltaX);
+        shapeStartPoint.setY(shapeStartPoint.getY() + deltaY);
+
+        shapeEndPoint.setX(shapeEndPoint.getX() + deltaX);
+        shapeEndPoint.setY(shapeEndPoint.getY() + deltaY);
+    }
+
+    public IShape copy() {
+        IShapeFactory factory = new ShapeFactory();
+
+        IShape newShape = factory.createShape(new Point(this.startPoint.getX()+100, this.startPoint.getY()+100), new Point(this.endPoint.getX()+100, this.endPoint.getY()+100), this.state, this.drawer);
+
+        return newShape;
     }
 
     public IPoint getStartPoint() {
@@ -106,6 +126,10 @@ public class Shape implements IShape {
 
     public ShapeShadingType getShapeShadingType() {
         return this.shapeShadeType;
+    }
+
+    public void setDrawer(IShapeDrawer drawer) {
+        this.drawer = drawer;
     }
 
 }
